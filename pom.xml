@@ -341,7 +341,8 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 				</configuration>
-			</plugin>
+      </plugin>
+      <!--
 			<plugin>
 				<groupId>com.github.igor-petruk.protobuf</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
@@ -353,7 +354,8 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+      </plugin>
+      -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
