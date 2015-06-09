@@ -16,6 +16,8 @@
 
 package org.cloudfoundry.client.lib.domain;
 
+import java.util.List;
+
 /**
  * @author Thomas Risberg
  */
@@ -24,6 +26,7 @@ public class CloudOrganization extends CloudEntity {
 	private boolean billingEnabled = false;
 	private CloudQuota quota;
 	private Long memoryUsage;
+	private List<CloudSpace> spaces;
 
 	public CloudOrganization(Meta meta, String name) {
 		this(meta, name, false);
@@ -45,6 +48,14 @@ public class CloudOrganization extends CloudEntity {
 		this.quota=quota;
 		this.billingEnabled = billingEnabled;
 		this.memoryUsage = memoryUsage;
+	}
+
+	public List<CloudSpace> getSpaces() {
+		return spaces;
+	}
+
+	public void setSpaces(List<CloudSpace> spaces) {
+		this.spaces = spaces;
 	}
 
 	public boolean isBillingEnabled() {

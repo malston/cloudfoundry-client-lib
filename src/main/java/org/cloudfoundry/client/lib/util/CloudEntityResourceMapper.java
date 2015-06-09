@@ -163,7 +163,15 @@ public class CloudEntityResourceMapper {
 		if (quotaDefinition != null) {
 			quota = mapQuotaResource(quotaDefinition);
 		}
-		return new CloudOrganization(getMeta(resource), getNameOfResource(resource), quota, billingEnabled, memory);
+		List<Map<String, Object>> spacesResource = getEmbeddedResourceList(getEntity(resource), "spaces");
+		List<CloudSpace> spaces = new ArrayList<>(spacesResource.size());
+		for (Map<String, Object> spaceResource : spacesResource) {
+			spaces.add(mapSpaceResource(spaceResource));
+		}
+		CloudOrganization organization = new CloudOrganization(getMeta(resource), getNameOfResource(resource), quota, billingEnabled, memory);
+		organization.setSpaces(spaces);
+
+		return organization;
 	}
 
 	private CloudQuota mapQuotaResource(Map<String, Object> resource) {
