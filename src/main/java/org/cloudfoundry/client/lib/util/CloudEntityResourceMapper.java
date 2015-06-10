@@ -243,25 +243,29 @@ public class CloudEntityResourceMapper {
 		}
 
 		Map<String, Object> spaceResource = getEmbeddedResource(resource, "space");
-		CloudSpace space = mapSpaceResource(spaceResource);
-		app.setSpace(space);
+		if (spaceResource != null) {
+			CloudSpace space = mapSpaceResource(spaceResource);
+			app.setSpace(space);
+		}
 
 		Map envMap = getEntityAttribute(resource, "environment_json", Map.class);
-		if (envMap.size() > 0) {
+		if (envMap != null && envMap.size() > 0) {
 			app.setEnv(envMap);
 		}
 		app.setMemory(getEntityAttribute(resource, "memory", Integer.class));
 		app.setDiskQuota(getEntityAttribute(resource, "disk_quota", Integer.class));
 		List<Map<String, Object>> serviceBindings = getEntityAttribute(resource, "service_bindings", List.class);
-		List<String> serviceList = new ArrayList<String>();
-		for (Map<String, Object> binding : serviceBindings) {
-			Map<String, Object> service = getEntityAttribute(binding, "service_instance", Map.class);
-			String serviceName = getNameOfResource(service);
-			if (serviceName != null) {
-				serviceList.add(serviceName);
+		if (serviceBindings != null) {
+			List<String> serviceList = new ArrayList<String>();
+			for (Map<String, Object> binding : serviceBindings) {
+				Map<String, Object> service = getEntityAttribute(binding, "service_instance", Map.class);
+				String serviceName = getNameOfResource(service);
+				if (serviceName != null) {
+					serviceList.add(serviceName);
+				}
 			}
+			app.setServices(serviceList);
 		}
-		app.setServices(serviceList);
 		return app;
 	}
 
