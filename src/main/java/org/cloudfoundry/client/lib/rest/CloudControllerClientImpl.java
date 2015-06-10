@@ -1718,7 +1718,7 @@ public class CloudControllerClientImpl implements CloudControllerClient {
 	 */
 	public CloudOrganization getOrgByName(String orgName, boolean required) {
 		Map<String, Object> urlVars = new HashMap<String, Object>();
-		String urlPath = "/v2/organizations?inline-relations-depth=1&q=name:{name}";
+		String urlPath = "/v2/organizations?inline-relations-depth=2&q=name:{name}";
 		urlVars.put("name", orgName);
 		CloudOrganization org = null;
 		List<Map<String, Object>> resourceList = getAllResources(urlPath,
