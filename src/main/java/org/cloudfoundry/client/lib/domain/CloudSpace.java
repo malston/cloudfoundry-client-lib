@@ -16,6 +16,8 @@
 
 package org.cloudfoundry.client.lib.domain;
 
+import java.util.List;
+
 
 /**
  * @author Thomas Risberg
@@ -23,14 +25,27 @@ package org.cloudfoundry.client.lib.domain;
 public class CloudSpace extends CloudEntity {
 
 	private CloudOrganization organization;
+	
+	private List<CloudApplication> applications;
 
 	public CloudSpace(Meta meta, String name, CloudOrganization organization) {
 		super(meta, name);
 		this.organization = organization;
 	}
 
+	public CloudSpace(Meta meta, String name, CloudOrganization organization, List<CloudApplication> applications) {
+		this(meta, name, organization);
+		if (applications != null && !applications.isEmpty()) {
+			this.applications = applications;
+		}
+	}
+
 	public CloudOrganization getOrganization() {
 		return organization;
+	}
+
+	public List<CloudApplication> getApplications() {
+		return applications;
 	}
 
 }

@@ -120,7 +120,15 @@ public class CloudEntityResourceMapper {
 		if (organizationMap != null) {
 			organization = mapOrganizationResource(organizationMap);
 		}
-		return new CloudSpace(getMeta(resource), getNameOfResource(resource), organization);
+		List<Map<String, Object>> applicationResource = getEmbeddedResourceList(getEntity(resource), "apps");
+		List<CloudApplication> apps = new ArrayList<CloudApplication>();
+		if (applicationResource != null) {
+			for (Map<String, Object> app : applicationResource) {
+				apps.add(mapApplicationResource(app));
+			}
+		}
+		
+		return new CloudSpace(getMeta(resource), getNameOfResource(resource), organization, apps);
 	}
 	
 	private CloudUser mapUserResource(Map<String, Object> resource) {
